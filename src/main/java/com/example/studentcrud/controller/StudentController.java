@@ -1,57 +1,46 @@
 package com.example.studentcrud.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.example.studentcrud.domain.Student;
 import com.example.studentcrud.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
-@Controller
-
+@RestController
+@RequestMapping("/api/students")
 public class StudentController {
 
-	 @Autowired
-     private StudentService service;
-     @GetMapping("/")
-     public String viewHomePage(Model model) {
-         List<Student> liststudent = service.listAll();
-         model.addAttribute("liststudent", liststudent);
-         System.out.print("Get / ");    
-         return "index";
-     }
-     @GetMapping("/new")
-     public String add(Model model) {
-         model.addAttribute("student", new Student());
-         return "new";
-     }
-     @RequestMapping(value = "/save", method = RequestMethod.POST)
-     public String saveStudent(@ModelAttribute("student") Student std) {
-         service.save(std);
-         return "redirect:/";
-     }
-     @RequestMapping("/edit/{id}")
-     public ModelAndView showEditStudentPage(@PathVariable(name = "id") int id) {
-         ModelAndView mav = new ModelAndView("new");
-         Student std = service.get(id);
-         mav.addObject("student", std);
-         return mav;
-         
-     }
-     @RequestMapping("/delete/{id}")
-     public String deletestudent(@PathVariable(name = "id") int id) {
-         service.delete(id);
-         return "redirect:/";
-     }
-	
+    @Autowired
+    private StudentService studentService;
+
+    @GetMapping
+    public ResponseEntity<List<Student>> getAllStudents() {
+        List<Student> students = studentService.listAll();
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+        Student savedStudent = studentService.save(student);
+        return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+        Student student = studentService.get(id);
+        if (student != null) {
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        studentService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
