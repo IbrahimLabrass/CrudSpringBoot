@@ -3,6 +3,10 @@ package com.example.studentcrud.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 @Entity
 public class Teacher {
     @Id
@@ -11,7 +15,8 @@ public class Teacher {
     private String teacherName;
     private String subject;
 
-
+    @ManyToMany
+    private List<Group> groups;
 
     public Long getId() {
         return id;
@@ -29,9 +34,6 @@ public class Teacher {
         this.subject = subject;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
 
     public String getTeacherName() {
         return teacherName;
@@ -41,19 +43,25 @@ public class Teacher {
         return subject;
     }
 
-    public Group getGroup() {
-        return group;
+    public List<Group> getGroups() {
+        return groups;
     }
 
-    public Teacher(long id, String teacherName, String  subject) {
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+    public Teacher() {
+        this.groups = new ArrayList<>();
+    }
+    public Teacher(long id, String teacherName, String  subject, List<Group> groups) {
 
         this.id = id;
         this.teacherName = teacherName;
         this.subject = subject;
+        this.groups = groups;
+
 
     }
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
+
 
 }

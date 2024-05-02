@@ -49,6 +49,7 @@ public class StudentController {
         studentService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @GetMapping("/export/excel")
     public void exportStudentsToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");

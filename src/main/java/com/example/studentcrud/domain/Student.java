@@ -1,9 +1,6 @@
 package com.example.studentcrud.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Student {
@@ -14,11 +11,23 @@ public class Student {
     private String course;
     private int fee;
 
+    @ManyToOne
+    private Group group;
+
+
     public Student() {
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void setId(Long id) {
@@ -49,11 +58,12 @@ public class Student {
         return fee;
     }
 
-    public Student(Long id, String studentname, String course, int fee) {
+    public Student(Long id, String studentname, String course, int fee, Group group) {
 
         this.id = id;
         this.studentname = studentname;
         this.course = course;
         this.fee = fee;
+        this.group = group;
     }
 }

@@ -1,10 +1,9 @@
 package com.example.studentcrud.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class School {
@@ -14,10 +13,16 @@ public class School {
     private String schoolName;
     private String Location ;
 
-    public School(long id, String schoolName, String Location) {
-        this.id = id;
-        this.schoolName= schoolName;
-        this.Location= Location;
+
+
+    @OneToMany(mappedBy = "school")
+    private List<Group> groups;
+
+    @OneToMany(mappedBy = "school")
+    private List<Teacher> teachers;
+
+    public School() {
+
     }
 
     public void setLocation(String location) {
@@ -45,5 +50,19 @@ public class School {
         return schoolName;
     }
 
+    public List<Group> getGroups() {
+        return groups;
+    }
 
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
+    }
 }
