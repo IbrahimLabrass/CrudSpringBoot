@@ -13,6 +13,16 @@ public class School {
     private Long id;
     private String schoolName;
 
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    private String Location ;
+
     public void setId(Long id) {
         this.id = id;
     }

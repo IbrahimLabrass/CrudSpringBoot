@@ -10,6 +10,16 @@ public class Group {
     private Long id;
     private String groupName;
 
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    private String Description;
+
     public School getSchool() {
         return school;
     }
