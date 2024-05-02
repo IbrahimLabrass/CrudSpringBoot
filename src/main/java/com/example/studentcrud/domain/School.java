@@ -12,6 +12,13 @@ public class School {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String schoolName;
+    private String Location ;
+
+    public School(long id, String schoolName, String Location) {
+        this.id = id;
+        this.schoolName= schoolName;
+        this.Location= Location;
+    }
 
     public void setLocation(String location) {
         Location = location;
@@ -21,7 +28,6 @@ public class School {
         return Location;
     }
 
-    private String Location ;
 
     public void setId(Long id) {
         this.id = id;
@@ -38,4 +44,6 @@ public class School {
     public String getSchoolName() {
         return schoolName;
     }
+
+
 }

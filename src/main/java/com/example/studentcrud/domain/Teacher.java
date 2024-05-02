@@ -9,6 +9,9 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String teacherName;
+    private String subject;
+
+
 
     public Long getId() {
         return id;
@@ -42,8 +45,13 @@ public class Teacher {
         return group;
     }
 
-    private String subject;
+    public Teacher(long id, String teacherName, String  subject) {
 
+        this.id = id;
+        this.teacherName = teacherName;
+        this.subject = subject;
+
+    }
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;

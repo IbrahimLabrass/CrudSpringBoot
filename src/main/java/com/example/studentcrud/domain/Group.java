@@ -9,6 +9,14 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String groupName;
+    private String Description;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    private School school;
+
 
     public void setDescription(String description) {
         Description = description;
@@ -18,7 +26,6 @@ public class Group {
         return Description;
     }
 
-    private String Description;
 
     public School getSchool() {
         return school;
@@ -43,10 +50,10 @@ public class Group {
     public String getGroupName() {
         return groupName;
     }
+    public Group(long id, String groupName, String Description) {
+        this.id = id ;
+        this.groupName= groupName;
+        this.Description= Description;
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "school_id")
-    private School school;
-
-    // Constructors, getters, setters
 }
