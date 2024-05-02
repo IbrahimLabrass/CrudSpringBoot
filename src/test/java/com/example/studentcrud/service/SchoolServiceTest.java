@@ -2,10 +2,12 @@ package com.example.studentcrud.service;
 
 import com.example.studentcrud.domain.School;
 import com.example.studentcrud.repository.SchoolRepository;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
@@ -25,6 +27,10 @@ public class SchoolServiceTest {
     @InjectMocks
     private SchoolService schoolService;
 
+    @BeforeEach
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
     @Test
     public void testListAllSchools() {
         // Arrange

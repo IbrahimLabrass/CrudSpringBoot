@@ -3,9 +3,11 @@ package com.example.studentcrud.service;
 import com.example.studentcrud.domain.Student;
 import com.example.studentcrud.repository.StudentRepository;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
@@ -24,7 +26,10 @@ public class StudentServiceTest {
 
     @InjectMocks
     private StudentService studentService;
-
+    @BeforeEach
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
     @Test
     public void testListAllStudents() {
         // Arrange
