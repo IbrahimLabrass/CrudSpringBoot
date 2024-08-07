@@ -31,6 +31,7 @@ public class SchoolServiceTest {
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
+
     @Test
     public void testListAllSchools() {
         // Arrange
